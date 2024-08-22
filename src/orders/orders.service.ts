@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class OrdersService {

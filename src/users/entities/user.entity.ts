@@ -1,20 +1,20 @@
-import { HasMany } from "sequelize-typescript";
 import { Order } from "src/orders/entities/order.entity";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("users")
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column( {type:'string', length:'255'} )
+    @Column( {type:'varchar', length:'255'} )
     email: string;
 
-    @Column({type:'string', length:'255'})
+    @Column({type:'varchar', length:'255'})
     password: string;
 
-    @Column({type:'string', length:'10'})
+    @Column({type:'varchar', length:'10'})
     role: string;
 
-    @HasMany(() => Order)
+    @OneToMany(() => Order, order => order.user)
+    orders: Order[];
 }

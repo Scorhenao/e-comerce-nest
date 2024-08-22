@@ -1,6 +1,7 @@
 import { HasOne } from "sequelize-typescript";
+import { Product } from "src/products/entities/product.entity";
 import { User } from "src/users/entities/user.entity";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("orders")
 export class Order {
@@ -16,5 +17,10 @@ export class Order {
     @Column({ type: 'decimal', precision: 10, scale: 2  })
     totalPrice: number;
 
-    @HasOne(() => User)
+    @ManyToOne(() => User, user => user.orders, { onDelete: 'CASCADE' })
+    user: User;
+
+    @ManyToMany(() => Product)
+    @JoinTable()
+    product: Product[];
 }
