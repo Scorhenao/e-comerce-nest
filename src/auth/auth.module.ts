@@ -1,24 +1,18 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { JwtStrategy } from './strategies/jwt.strategy';
-import { User } from '../users/entities/user.entity';
+import { forwardRef } from '@nestjs/common';
 import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [
-    UsersModule,
-    PassportModule,
     JwtModule.register({
-      secret: 'your_jwt_secret_key',  // Cambia esto por una clave secreta más fuerte
-      signOptions: { expiresIn: '2h' },
+      secret: process.env.JWT_SECRET || 'SamuValeIsa*',
+      signOptions: { expiresIn: '60m' },
     }),
-    TypeOrmModule.forFeature([User]),
+    forwardRef(() => UsersModule),
   ],
-  providers: [AuthService, JwtStrategy],
-  controllers: [AuthController],
+  providers: [AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}

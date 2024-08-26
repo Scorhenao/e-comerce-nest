@@ -75,8 +75,7 @@ Nest is [MIT licensed](LICENSE).
 ## dependencies
 ```bash
 npm install class-validator class-transformer
-npm install @nestjs/jwt @nestjs/passport passport-jwt bcrypt sequelize-typescript
-npm install bcrypt @types/bcrypt
-npm install passport-jwt
+npm install @nestjs/jwt @nestjs/passport passport passport-jwt
 npm install bcrypt @nestjs/bcrypt
+ npm i @nestjs/config
 ```
