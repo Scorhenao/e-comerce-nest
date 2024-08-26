@@ -24,4 +24,5 @@ export class Order {
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   totalPrice: number;
+  orderProducts: any;
 }

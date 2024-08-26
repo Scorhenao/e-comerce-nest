@@ -1,12 +1,14 @@
+import { AuthGuard } from './auth/guards/auth.guard';
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { Product } from './products/entities/product.entity';
 import { Order } from './orders/entities/order.entity';
-import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -20,10 +22,11 @@ import { AuthModule } from './auth/auth.module';
       entities: [User, Product, Order],
       synchronize: true,
     }),
-    AuthModule,
-    UsersModule,
+    AuthModule, // Ensure AuthModule is imported
     ProductsModule,
     OrdersModule,
+    UsersModule,
   ],
+  providers: [AuthGuard, JwtService],
 })
 export class AppModule {}

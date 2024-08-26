@@ -1,15 +1,22 @@
-import { Order } from 'src/orders/entities/order.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersService } from './orders.service';
+import { Order } from './entities/order.entity';
+import { Product } from '../products/entities/product.entity';
+import { OrderProduct } from '../order-product/entities/order-product.entity';
+import { User } from '../users/entities/user.entity';
+import { UsersModule } from '../users/users.module'; // Importa el módulo de usuarios si es necesario
 import { OrdersController } from './orders.controller';
-import { Product } from 'src/products/entities/product.entity';
-import { User } from 'src/users/entities/user.entity';
+import { ProductsModule } from 'src/products/products.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Order, Product, User])],
+  imports: [
+    TypeOrmModule.forFeature([Order, Product, OrderProduct, User]),
+    ProductsModule,
+    UsersModule, // Importa el módulo de usuarios si es necesario
+  ],
   providers: [OrdersService],
-  controllers: [OrdersController],
-  exports: [OrdersService], // Exporta el servicio si es necesario en otros módulos
+  controllers: [OrdersController], // Incluye el controlador aquí
+  exports: [OrdersService],
 })
 export class OrdersModule {}
