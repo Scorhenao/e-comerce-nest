@@ -23,7 +23,7 @@ export class UsersService {
     const user = this.usersRepository.create({
       ...createUserDto,
       password: hashedPassword,
-      role: 'user',
+      role: createUserDto.role || 'user', // Asigna el rol con un valor por defecto si no se proporciona
     });
 
     return this.usersRepository.save(user);

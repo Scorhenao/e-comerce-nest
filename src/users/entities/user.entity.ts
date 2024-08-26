@@ -13,7 +13,7 @@ export class User {
     @Column({type:'varchar', length:'255'})
     password: string;
 
-    @Column({type:'varchar', length:'5',  default: 'user' })
+    @Column({type:'varchar', length:'50',  default: 'user' })
     role: string;
 
     @OneToMany(() => Order, (order) => order.user)

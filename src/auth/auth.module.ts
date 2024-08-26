@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+// src/auth/auth.module.ts
+import { Module, forwardRef } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
-import { forwardRef } from '@nestjs/common';
+import { AuthController } from './auth.controller'; // Asegúrate de que el path sea correcto
 import { UsersModule } from '../users/users.module';
 
 @Module({
@@ -13,6 +14,7 @@ import { UsersModule } from '../users/users.module';
     forwardRef(() => UsersModule),
   ],
   providers: [AuthService],
+  controllers: [AuthController], // Incluye el controlador aquí
   exports: [AuthService],
 })
 export class AuthModule {}
